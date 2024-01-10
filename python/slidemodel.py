@@ -26,6 +26,11 @@ class Model:
             raise RuntimeError(f"Positions ({x1},{y1}) and ({x2},{y2}) are not adjacent")
         else:
             self.grid[y1][x1], self.grid[y2][x2] = self.grid[y2][x2], self.grid[y1][x1]
+
+    def isCorrect(self):
+        correctGrid = [[self.size*j + i + 1 for i in range(self.size)] for j in range(self.size)]
+        correctGrid[self.size-1][self.size-1] = -1
+        return self.grid == correctGrid
         
     def generate(self):
         for i in range(self.size):
