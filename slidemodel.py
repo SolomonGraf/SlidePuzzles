@@ -23,10 +23,9 @@ class Model:
     
     def swap(self, x1:int, y1:int, x2:int, y2:int) -> bool:
         if not isAdjacent(x1,y1,x2,y2):
-            return False
+            raise RuntimeError(f"Positions ({x1},{y1}) and ({x2},{y2}) are not adjacent")
         else:
             self.grid[y1][x1], self.grid[y2][x2] = self.grid[y2][x2], self.grid[y1][x1]
-            return True
         
     def generate(self):
         for i in range(self.size):
@@ -42,20 +41,13 @@ class Model:
         return list(filter(lambda i : self._inRange(i[0],i[1]),emptyNeighbors))
     
     def shuffle(self):
-        for _ in range(100):
+        for _ in range(200):
             selection = random.choice(self.emptyNeighbors())
-            self.swap(selection[1],selection[0],self.currentX,self.currentY)
-            self.currentX = selection[1]
-            self.currentY = selection[0]
+            self.swap(selection[0],selection[1],self.currentX,self.currentY)
+            self.currentX = selection[0]
+            self.currentY = selection[1]
             if self.value(self.currentX,self.currentY) != -1:
-                raise RuntimeError(f"Swap error @ {str(selection)} \n" + str(self.grid))
+                raise RuntimeError(f"Swap error @ {str(selection)} \n" + str(self.grid) + "\n" + str(self.emptyNeighbors()))
 
     def __str__(self):
         return str(self.grid)
-    
-model = Model(4)
-print(str(model))
-model.generate()
-print(str(model))
-model.shuffle()
-print(str(model))
