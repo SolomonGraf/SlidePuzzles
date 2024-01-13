@@ -1,11 +1,13 @@
 package java;
 
-public class SlideBoard implements Runnable {
+import javax.swing.*;
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
-    }
+public class SlideBoard extends JComponent {
     
+    private SlideModel model;
+
+    public SlideBoard() {
+        this.model = new SlideModel(3);
+    }
+
 }
