@@ -1,10 +1,9 @@
-package java;
+package javaslide;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.random.*;
 
 public class SlideModel {
     
@@ -42,12 +41,20 @@ public class SlideModel {
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
-    private boolean isEmpty(Point p) {
+    public boolean isEmpty(Point p) {
         return p.x() == current.x() && p.y() == current.y();
     }
 
     public int value(int x, int y) {
         return board[y][x];
+    }
+
+    public Point getCurrent() {
+        return this.current;
+    }
+
+    public int getSize() {
+        return this.size;
     }
 
     public void swap(Point p1, Point p2) {
