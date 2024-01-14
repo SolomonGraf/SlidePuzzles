@@ -45,8 +45,8 @@ public class SlideModel {
         return p.x() == current.x() && p.y() == current.y();
     }
 
-    public int value(int x, int y) {
-        return board[y][x];
+    public int value(int row, int column) {
+        return board[column][row];
     }
 
     public Point getCurrent() {

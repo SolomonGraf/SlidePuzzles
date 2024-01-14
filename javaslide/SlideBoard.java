@@ -29,16 +29,21 @@ public class SlideBoard extends JComponent {
                 g.setColor(Color.BLACK);
                 Font boldFont = Font.getFont("Arial");
                 try {
-                    boldFont = Font.createFont(Font.TRUETYPE_FONT, new File("files/boldfont.ttf")).deriveFont(12f);
+                    boldFont = Font.createFont(Font.TRUETYPE_FONT, new File("files/boldfont.ttf")).deriveFont(48f);
                 } catch (Exception ignored) {}
                 g.setFont(boldFont);
-                String number = Integer.toString(size * row + column + 1);
-                Rectangle2D bounds = boldFont.getStringBounds(number, null);
+                String number = Integer.toString(this.model.value(column, row));
+                Rectangle2D bounds = boldFont.getStringBounds(number, ((Graphics2D) g).getFontRenderContext());
                 int textHeight = (int) bounds.getHeight();
                 int textWidth = (int) bounds.getWidth();
-                g.drawString(Integer.toString(size * row + column + 1), squareSize*column - textWidth/2, squareSize*row + textHeight/2);
+                g.drawString(Integer.toString(size * row + column + 1), squareSize*column + squareSize/2 - textWidth/2, squareSize*row + squareSize/2 + textHeight/2);
             }
         }
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(BOARD_SIZE,BOARD_SIZE+BAR_HEIGHT);
     }
 
 }
