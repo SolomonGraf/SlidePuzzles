@@ -22,7 +22,7 @@ def generate(size : int) -> dict:
             canvas = Image.new("RGB",(squareSize,squareSize))
             canvasDraw = ImageDraw.ImageDraw(canvas)
             canvasDraw.rectangle((0,0,squareSize,squareSize),fill="grey")
-            font = ImageFont.truetype('files/boldfont.ttf',70)
+            font = ImageFont.truetype('files/boldFont.ttf',70)
             canvasDraw.text((squareSize/2,squareSize/2),text = str(position), font=font, fill = "black", anchor="mm")
             squares[str(position)] = canvas
     return squares

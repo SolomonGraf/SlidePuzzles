@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class SlideModel {
     
-    private int[][] board;
-    private int size;
+    private final int[][] board;
+    private final int size;
     private Point current;
 
     public SlideModel(int size){
@@ -31,8 +31,8 @@ public class SlideModel {
         return board;
     }
 
-    private boolean isAdjacent(int x1, int y1, int x2, int y2) {
-        return Math.abs(x1-x2) + Math.abs(y1-y2) == 1;
+    private boolean isAdjacent(Point p1, Point p2) {
+        return Math.abs(p1.x() - p2.x()) + Math.abs(p1.y()-p2.y()) == 1;
     }
 
     private boolean inRange(Point p) {
@@ -41,16 +41,16 @@ public class SlideModel {
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
-    public boolean isEmpty(Point p) {
-        return p.x() == current.x() && p.y() == current.y();
-    }
-
     public int value(int row, int column) {
         return board[column][row];
     }
 
     public Point getCurrent() {
         return this.current;
+    }
+
+    public void setCurrent(Point p) {
+        current = p;
     }
 
     public int getSize() {
@@ -63,7 +63,7 @@ public class SlideModel {
         int x2 = p2.x();
         int y2 = p2.y();
 
-        if (!isAdjacent(x1, y1, x2, y2)) {
+        if (!isAdjacent(p1, p2)) {
             throw new IllegalArgumentException("Boxes are not adjacent");
         }
         int temp = this.board[y1][x1];
@@ -84,7 +84,7 @@ public class SlideModel {
         neighbors.add(new Point(x-1,y));
         neighbors.add(new Point(x,y+1));
         neighbors.add(new Point(x,y-1));
-        neighbors = neighbors.stream().filter(p -> inRange(p)).toList();
+        neighbors = neighbors.stream().filter(this::inRange).toList();
         return neighbors;
     }
 
